@@ -8,19 +8,23 @@ RUN apt-get update && apt-get install -y \
 
 ARG SHA=da045c486e314e6f7db253998d886a163172295b
 
-RUN git clone https://github.com/BrooksLabUCSC/splicedice.git
-WORKDIR /opt/splicedice
-RUN git reset --hard $SHA
-RUN pip install pysam==0.23.3 .
-RUN rm -rf /opt/splicedice
+RUN git init splicedice \
+ && cd splicedice \
+ && git remote add origin https://github.com/BrooksLabUCSC/splicedice.git \
+ && git fetch --depth 1 origin "$SHA" \
+ && git checkout FETCH_HEAD \
+ && pip install --no-cache-dir pysam==0.23.3 . \
+ && cd /opt \
+ && rm -rf splicedice
 
-WORKDIR /opt
-RUN git clone --branch v1.4.0 --depth 1 https://github.com/diekhans/intronProspector.git
-WORKDIR /opt/intronProspector
-RUN ./configure && make -j$(nproc) && make install
-RUN rm -rf /opt/intronProspector
-
-WORKDIR /opt
+RUN git clone --branch v1.4.0 --depth 1 \
+      https://github.com/diekhans/intronProspector.git \
+ && cd intronProspector \
+ && ./configure \
+ && make -j$(nproc) \
+ && make install \
+ && cd /opt \
+ && rm -rf intronProspector
 
 RUN apt-get purge -y git build-essential pkg-config \
     && apt-get autoremove -y \
