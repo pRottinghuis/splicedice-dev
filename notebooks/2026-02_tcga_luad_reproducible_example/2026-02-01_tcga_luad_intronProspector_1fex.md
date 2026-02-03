@@ -2,7 +2,7 @@
 
 Follow to get the ref genome and annotation setup: https://github.com/pRottinghuis/splicedice-dev/blob/develop/notebooks/setup/ref_genomes.md
 
-# Instructions
+# Instructions for wt .bam File
 
 1. If not already done, build the SpliceDICE and intronProspector docker image.
 ```bash
@@ -18,5 +18,13 @@ docker run -it --rm \
     splicedice-tools:latest /bin/bash
 ```
 
+3. Inside the container, generate index for the reference genome. This is required by intronProspector.
+```bash
+samtools faidx /opt/data/ref/GRCh38.primary_assembly.genome.fa
+```
 
+4. Run intronProspector on the sample BAM file.
+```bash
+intronProspector --genome-fasta=/opt/data/ref/GRCh38.primary_assembly.genome.fa --junction-bed=/opt/data/intron_prospector_runs/2026-02-03_18-34-06/juncs.bed /opt/data/tcga/0a26152a-462f-4895-8fe8-15fcdcc56e16/7a7440bf-1ca1-4c6b-80f8-7151a38e5d18.rna_seq.genomic.gdc_realn.bam
+```
 
