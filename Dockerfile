@@ -3,7 +3,7 @@ FROM python:3.8-slim
 WORKDIR /opt
 
 RUN apt-get update && apt-get install -y \
-    git build-essential pkg-config libhts-dev \
+    git build-essential pkg-config libhts-dev samtools=1.16.1-1\
     && rm -rf /var/lib/apt/lists/*
 
 ARG SHA=da045c486e314e6f7db253998d886a163172295b
