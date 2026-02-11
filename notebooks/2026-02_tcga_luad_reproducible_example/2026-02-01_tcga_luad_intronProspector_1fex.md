@@ -20,7 +20,7 @@ mkdir -p /mnt/data/intron_prospector_runs/"$TS"/0a26152a-462f-4895-8fe8-15fcdcc5
 docker run -it --rm \
     -v /mnt/data/ref/GRCh38.primary_assembly.genome.fa:/opt/data/ref/ref.fa \
     -v /mnt/data/tcga/0a26152a-462f-4895-8fe8-15fcdcc56e16/7a7440bf-1ca1-4c6b-80f8-7151a38e5d18.rna_seq.genomic.gdc_realn.bam:/opt/data/tcga/0a26152a-462f-4895-8fe8-15fcdcc56e16/alns.bam \
-    -v /mnt/data/intron_prospector_runs/"$TS"/0a26152a-462f-4895-8fe8-15fcdcc56e16/:/opt/data/output/0a26152a-462f-4895-8fe8-15fcdcc56e16/ \
+    -v /mnt/data/intron_prospector_runs/output:/opt/data/output/ \
     splicedice-tools:latest /bin/bash
 ```
 
@@ -31,7 +31,7 @@ samtools faidx /opt/data/ref/ref.fa
 
 5. Run intronProspector on the sample BAM file.
 ```bash
-intronProspector -S --genome-fasta=/opt/data/ref/ref.fa --junction-bed=/opt/data/output/0a26152a-462f-4895-8fe8-15fcdcc56e16/juncs.bed /opt/data/tcga/0a26152a-462f-4895-8fe8-15fcdcc56e16/alns.bam
+intronProspector -S --genome-fasta=/opt/data/ref/ref.fa --intron-bed6=/opt/data/output/IP_0a26152a_wt_juncs.bed /opt/data/tcga/0a26152a-462f-4895-8fe8-15fcdcc56e16/alns.bam
 ```
 
 # Instructions for s34f .bam File (TCGA-49-4505-01A0ebf5cc5-f242-45ef-821a-939b51dc95a2)
@@ -51,7 +51,7 @@ mkdir -p /mnt/data/intron_prospector_runs/"$TS"/0ebf5cc5-f242-45ef-821a-939b51dc
 docker run -it --rm \
     -v /mnt/data/ref/GRCh38.primary_assembly.genome.fa:/opt/data/ref/ref.fa \
     -v /mnt/data/tcga/0ebf5cc5-f242-45ef-821a-939b51dc95a2/330845b9-1d53-47af-8cb7-30ce5d30625d.rna_seq.genomic.gdc_realn.bam:/opt/data/tcga/0ebf5cc5-f242-45ef-821a-939b51dc95a2/alns.bam \
-    -v /mnt/data/intron_prospector_runs/"$TS"/0ebf5cc5-f242-45ef-821a-939b51dc95a2/:/opt/data/output/0ebf5cc5-f242-45ef-821a-939b51dc95a2/ \
+    -v /mnt/data/intron_prospector_runs/output:/opt/data/output/ \
     splicedice-tools:latest /bin/bash
 ```
 
@@ -62,7 +62,7 @@ samtools faidx /opt/data/ref/ref.fa
 
 5. Run intronProspector on the sample BAM file.
 ```bash
-intronProspector -S --genome-fasta=/opt/data/ref/ref.fa --junction-bed=/opt/data/output/0ebf5cc5-f242-45ef-821a-939b51dc95a2/juncs.bed /opt/data/tcga/0ebf5cc5-f242-45ef-821a-939b51dc95a2/alns.bam
+intronProspector -S --genome-fasta=/opt/data/ref/ref.fa --intron-bed6=/opt/data/output/IP_0ebf5cc5_mut_juncs.bed /opt/data/tcga/0ebf5cc5-f242-45ef-821a-939b51dc95a2/alns.bam
 ```
 
 # Format intronProspector output for SpliceDICE
@@ -90,7 +90,7 @@ TCGA-49-4505-01A0ebf5cc5-f242-45ef-821a-939b51dc95a2    opt/data/_junction_beds/
 
 ```bash
 docker run --rm \
-    -v /mnt/data/intron_prospector_runs/2026-02-03_23-47-43/:/opt/data \
+    -v /mnt/data/intron_prospector_runs/"$TS"/:/opt/data \
     splicedice-tools:latest splicedice quant -m /opt/data/_manifest.tsv -o /opt/data/
 ```
 
@@ -119,3 +119,32 @@ Writing PS values...
 All done [0:00:17.26]
 ```
 
+output:
+```
+_allPS.tsv
+_inclusionCounts.tsv
+_junctions.bed
+_allClusters.tsv
+```
+
+# Signature analysis
+
+1. Create sig_manifest.tsv in `/mnt/data/intron_prospector_runs/"$TS"/`
+
+```bash
+cat _manifest.tsv | cut -f1,3 > sig_manifest.tsv
+```
+
+2. compare two conditions. This will require splicedice source code because signature.py is not exposed in the splcieDICE build. Make sure to use commit SHA=`da045c486e314e6f7db253998d886a163172295b`.
+```bash
+docker run --rm \
+    -v /mnt/Repos/splicedice:/opt/splicedice/ \
+    -v /mnt/data/intron_prospector_runs/2026-02-03_23-47-43/:/opt/data/ \
+    splicedice-tools:latest \
+    python3 /opt/splicedice/scripts/signature.py compare \
+        -p /opt/data/_allPS.tsv \
+        -m /opt/data/sig_manifest.tsv \
+        -o /opt/data/
+```
+
+See /mnt/data/intron_prospector_runs/2026-02-03_23-47-43
