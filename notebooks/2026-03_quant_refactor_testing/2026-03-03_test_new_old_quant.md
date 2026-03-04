@@ -162,3 +162,5 @@ done
 ```
 
 Since there is no output the files are all identical and the refactor is not changing any behavior.
+
+Find ~/work/ archive in /mnt/data/splicedice-dev/2026-03-04_08-14-00
