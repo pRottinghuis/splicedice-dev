@@ -58,6 +58,8 @@ splicedice-dev:1.0.0 \
 intronProspector -S --genome-fasta=/opt/data/ref.fa --intron-bed6=/opt/output/IP_0a26152a_wt_juncs.bed /opt/data/input.bam
 ```
 
+TODO put a quick glimpse of what the IP IP_0a26152a_wt_juncs.bed output looks like here.
+
 Bed to use for proceeding steps will be in ~/work/
 
 ## Generate a manifest file for the quant check
