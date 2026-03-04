@@ -3,6 +3,8 @@
 Use https://github.com/pRottinghuis/splicedice/tree/feat/quant-bed6-input feature in spliceDICE fork.
 Compare to SpliceDICE sha=da045c486e314e6f7db253998d886a163172295b
 
+Dockerfile https://github.com/pRottinghuis/splicedice-dev/blob/develop/Dockerfile
+
 ## Build Docker Images for Each spliceDICE version
 
 Build existing SD image with the old quant code:
