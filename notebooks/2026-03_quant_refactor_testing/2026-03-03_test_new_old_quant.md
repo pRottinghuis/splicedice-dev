@@ -60,7 +60,17 @@ splicedice-dev:1.0.0 \
 intronProspector -S --genome-fasta=/opt/data/ref.fa --intron-bed6=/opt/output/IP_0a26152a_wt_juncs.bed /opt/data/input.bam
 ```
 
-TODO put a quick glimpse of what the IP IP_0a26152a_wt_juncs.bed output looks like here.
+Glimpse of IP_0a26152a_wt_juncs.bed
+```
+...
+chr1    136415  136610  sj24    26      -
+chr1    136415  136659  sj23    34      -
+chr1    136463  136903  sj26    12      -
+chr1    136903  137049  sj28    68      -
+chr1    136903  137147  sj29    55      -
+chr1    137001  137098  sj30    22      -
+...
+```
 
 Bed to use for proceeding steps will be in ~/work/
 
