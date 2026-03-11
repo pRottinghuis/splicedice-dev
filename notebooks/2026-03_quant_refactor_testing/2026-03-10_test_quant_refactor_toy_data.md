@@ -1,5 +1,7 @@
 # Compare Old Quant with Minimum Quant Refactor (Toy Data)
 
+TODO write why we did the refactor and briefly what is included
+
 This example performs the same validation as the notebook `2026-03-03_test_new_old_quant.md` but uses a toy dataset
 
 Use https://github.com/pRottinghuis/splicedice/tree/feat/quant-bed6-input feature in spliceDICE fork.
