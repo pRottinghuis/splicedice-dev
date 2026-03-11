@@ -9,14 +9,14 @@ Dockerfile https://github.com/pRottinghuis/splicedice-dev/blob/develop/Dockerfil
 
 ## Build Docker Images for Each spliceDICE version
 
-Build existing SD image with the old quant code:
+Build new SD quant image with the quant refactor:
 ``` Bash
-docker build -t splicedice-dev:1.0.0 .
+docker build -t splicedice-dev:1.1.0 .
 ```
 
-Update the Dockerfile to build the new SD image with the minimum quant refactor code:
+Change the Dockerfile by hand to build the old quant SD code:
 
-This is the existing Dockerfile
+This is how the splicedice section of the dockerfile should look to build old quant code:
 ``` Bash
 ARG SHA=da045c486e314e6f7db253998d886a163172295b
 
@@ -30,23 +30,9 @@ RUN git init splicedice \
 && rm -rf splicedice
 ```
 
-Updated lines for SHA and remote repository to my fork.
-```Bash
-ARG SHA=a9747926c96e81531000143a7e3016c7917916b8
-
-RUN git init splicedice \
-&& cd splicedice \
-&& git remote add origin https://github.com/pRottinghuis/splicedice.git \
-&& git fetch --depth 1 origin "$SHA" \
-&& git checkout FETCH_HEAD \
-&& pip install --no-cache-dir pysam==0.23.3 . \
-&& cd /opt \
-&& rm -rf splicedice
-```
-
-Build updated SD image with the quant refactor:
+Using the adjustment above, build the old SD quant image:
 ``` Bash
-docker build -t splicedice-dev:1.1.0 .
+docker build -t splicedice-dev:1.0.0 .
 ```
 
 ## Generate BED file with IP
