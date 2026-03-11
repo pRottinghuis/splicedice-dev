@@ -119,7 +119,7 @@ We will run quant and zero out all filters. This will prevent quant from calling
 docker run --rm \
 -v ~/work/:/opt/ \
 splicedice-dev:1.0.0 \
-splicedice quant -m /opt/manifest.tsv -o /opt/old_quant/ --maxLength 5000000000 --minLength 0 --minOverhang 0 --minUnique 0 --minEntropy 0
+splicedice quant -m /opt/manifest.tsv -o /opt/old_quant/ --maxLength 5000000000 --minLength 0 --minOverhang 0 --minUnique 0 --minEntropy 0 --drim
 ```
 
 Outputs will be in ~/work/old_quant/
@@ -158,7 +158,7 @@ Run quant with the new refactor.
 docker run --rm \
 -v ~/work/:/opt/ \
 splicedice-dev:1.1.0 \
-splicedice quant -m /opt/manifest.tsv -o /opt/new_quant/
+splicedice quant -m /opt/manifest.tsv -o /opt/new_quant/ --drim
 ```
 
 ## Compare outputs
