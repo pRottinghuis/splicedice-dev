@@ -6,14 +6,11 @@ RUN apt-get update && apt-get install -y \
     git build-essential pkg-config libhts-dev samtools=1.16.1-1\
     && rm -rf /var/lib/apt/lists/*
 
-ARG SHA=da045c486e314e6f7db253998d886a163172295b
+ARG BRANCH="feat/quant-bed6-input"
 
-RUN git init splicedice \
+RUN git clone --branch $BRANCH --depth 1 https://github.com/pRottinghuis/splicedice.git splicedice \
  && cd splicedice \
- && git remote add origin https://github.com/BrooksLabUCSC/splicedice.git \
- && git fetch --depth 1 origin "$SHA" \
- && git checkout FETCH_HEAD \
- && pip install --no-cache-dir pysam==0.23.3 . \
+ && pip install --no-cache-dir . \
  && cd /opt \
  && rm -rf splicedice
 
