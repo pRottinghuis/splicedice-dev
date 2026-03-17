@@ -1,8 +1,5 @@
 # Compare Old Quant with Minimum Quant Refactor
 
-TODO write why we did the refactor and briefly what is included
-
-
 Example data for this comparison comes from TCGA and is part of a dataset to study a rare splice defect in U2AF1. The sample is a RNA-seq .bam file aligned to GRCh38. The specific sample used in
 this comparison is a wild type sample for U2AF1. This sample has ~180k splice junctions. The goal of this comparison is to check that the quant refactor does not change any
 behavior outside of the input format and filters when using real size data.
