@@ -35,4 +35,25 @@ bedtools intersect \
 
 Count lines using wordcount
 
+```bash
+ls
+IP_0a26152a_wt_juncs.bed  IP_0ebf5cc5_mut_juncs.bed  IP_SD_0a26152a_wt_juncs_overlap.bed  IP_SD_0ebf5cc5_mut_juncs_overlap.bed  SD_0a26152a_wt_juncs.bed  SD_0ebf5cc5_mut_juncs.bed
+```
+
+Check how many introns are called by each method on a WT and mutant sample. IP/SD indicates tool and _wt/_mut indicates sample type. Also check how many introns are called by both tools (overlap).
+```bash
+wc -l IP_0a26152a_wt_juncs.bed 
+178927 IP_0a26152a_wt_juncs.bed
+wc -l SD_0a26152a_wt_juncs.bed 
+394887 SD_0a26152a_wt_juncs.bed
+wc -l IP_0ebf5cc5_mut_juncs.bed 
+162483 IP_0ebf5cc5_mut_juncs.bed
+wc -l SD_0ebf5cc5_mut_juncs.bed 
+366318 SD_0ebf5cc5_mut_juncs.bed
+wc -l IP_SD_0a26152a_wt_juncs_overlap.bed 
+175075 IP_SD_0a26152a_wt_juncs_overlap.bed
+wc -l IP_SD_0ebf5cc5_mut_juncs_overlap.bed 
+158932 IP_SD_0ebf5cc5_mut_juncs_overlap.bed
+``` 
+
 See /mnt/data/intron_prospector_runs/2026-02-11_18-48-05.
